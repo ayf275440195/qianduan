@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/vue/js/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="param" @keydown="addParam($event)"><button @click="addParam()">添加</button>
+    <h2>进行中</h2>
+    <ul v-for="(item,key) in list" v-if="!item.checked" >
+        <li><input type="checkbox" @change="saveList()"  v-model="item.checked" >{{item.title}}<button @click="rem(key)">删除</button></li>
+    </ul>
+
+    <br>
+    <br>
+    <h2>完成</h2>
+    <ul v-for="(item,key) in list" v-if="item.checked">
+        <li><input type="checkbox" @change="saveList()"  v-model="item.checked">{{item.title}}<button @click="rem(key)">删除</button></li>
+    </ul>
+</div>
+
+<script type="module">
+    import storage from '../js/model/storage.js';
+    console.log(storage)
+    new Vue({
+        el: '#app',
+        data: {
+            list:[],
+            param:""
+        },
+        methods:{
+            addParam(e){
+                if (e != null) {
+                    if (e.keyCode==13){
+                        this.list.push({
+                            title:this.param,
+                            checked:false
+                        })
+                        this.param=null;
+                    }
+                }else {
+                    this.list.push({
+                        title:this.param,
+                        checked:false
+                    })
+                    this.param=null;
+                }
+                storage.set("list",this.list)
+
+            },
+            rem(key){
+                this.list.splice(key,1);
+                storage.set("list",this.list)
+            },
+            saveList(){
+                storage.set("list",this.list)
+            }
+        },mounted(){
+            var li = storage.get("list")
+            if (li){
+                this.list = li;
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../static/js/angular.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var s = "";
+
+            $("#bt3").click(function () {
+                var url = "http://localhost:8080/test";
+                var param = {s:"ss"};
+                $.ajax({
+                    url: "http://localhost:8080/test",
+                    type: 'post',
+                    dataType: '',
+                    data: {
+                        s:"ss"
+
+                    },
+                    success: function(res){
+                        s = res
+                    },
+                    error: function(){
+                    }
+                })
+            })
+        })
+
+
+
+    </script>
+</head>
+<body ng-app >
+
+<div align="center">
+<form action="">
+    username:<input type="text" id="username"> <br>
+    password:<input type="password" id="password"><br>
+    <input type="text" placeholder="ss">
+    <input type="submit" value="提交" onclick="f()">
+    <input type="submit" value="测试" onclick="f1()">
+
+</form>
+    <input type="button" id="bt1" value="测试1">
+    <input type="button" id="bt2" value="测试1">
+    <input type="button" id="bt3" value="ajxs测试1">
+    <input type="button" id="bt4" value="测试1">
+    <p >{{name}}</p>
+</div>
+</body>
+</html>

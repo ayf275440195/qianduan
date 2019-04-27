@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bootstarp</title>
+    <script src="../js/jquery-3.3.1.min.js" ></script>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <script src="../js/bootstrap.min.js" ></script>
+    <style>
+        /*<!--流体容器-->*/
+        .container-fluid{
+            background-color: red;
+        }
+
+        .container{
+            background-color: palegreen;
+        }
+
+        div[class|=col]{
+            border: 1px black solid;
+        }
+    </style>
+</head>
+<body>
+<!--流体容器-->
+<div class="container-fluid">
+    流体容器
+</div>
+
+<div class="container">
+固定容器
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10">col-lg-10</div>
+        <div class="col-lg-2">col-lg-2</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">col-lg-6</div>
+        <div class="col-lg-6">col-lg-6</div>
+    </div>
+</div>
+
+</body>
+
+</html>

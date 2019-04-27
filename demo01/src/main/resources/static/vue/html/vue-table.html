@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="/static/vue/js/jquery.min.js"></script>
+    <script src="/static/vue/js/vue.js"></script>
+    <script src="/static/vue/js/vue-resource.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+    <template>
+        <el-table
+                :data="tableData"
+                height="250"
+                border
+                style="width: 100%">
+            <el-table-column
+                    prop="id"
+                    label="id"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="姓名"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="level"
+                    label="级别">
+            </el-table-column>
+        </el-table>
+    </template>
+    <template>
+        <div class="block">
+            <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="sizes"
+                    :page-size="size"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total">
+            </el-pagination>
+        </div>
+    </template>
+</div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            tableData: [],
+            postUrl:"/GetDepartment",
+            postData:{
+                id:"123",
+                name:"tom"
+            },
+            currentPage: 1,
+            sizes : [10, 20, 30, 40],
+            size:10,
+            total: 0,
+        },
+        methods:{
+            handleSizeChange(val) {
+                var that = this;
+                that.size=val;
+                console.log(val,that.size);
+            },
+            handleCurrentChange(val) {
+                var that = this;
+                var s = that.getItems(that.size,val)
+                console.log(s);
+            },
+            getItems(size,ye){
+                var that = this;
+                $.ajax({
+                    url:'/GetDepartment',
+                    type:'POST', //GET
+                    async:false,    //或false,是否异步
+                    data:{
+                        row : size,
+                        ye : ye
+                    },
+                    beforeSend:function(xhr){
+
+                    },
+                    success:function(data){
+                        that.tableData = data.rows
+
+                    },
+                    error:function(xhr,textStatus){
+                    },
+                    complete:function(){
+                    }
+                })
+            }
+
+        },mounted(){
+            var that = this;
+            console.log("初始化")
+            this.$http.post(that.postUrl,that.postData).then(function (res) {
+                console.log("ok")
+                that.tableData = res.body.rows
+                that.total = res.body.total
+            },function (res) {
+                console.log("失败")
+            })
+        },components:{
+
+        }
+
+    })
+</script>
+</html>

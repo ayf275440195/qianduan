@@ -1,0 +1,24 @@
+.juzhong(@h,@w,@c){
+  width: @w;
+  height: @h;
+  background: @c;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+#wrap{
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 1px solid;
+  margin: 0 auto;
+  .inner{
+    .juzhong(100px,150px,red);
+  }
+  .inner2{
+    .juzhong(200px,250px, #b4ff62);
+  }
+}

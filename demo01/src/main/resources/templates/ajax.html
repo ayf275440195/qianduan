@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script type="text/javascript" src="/static/js/angular.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("myModule",[]);
+        app.controller("myController",function ($scope,$http) {
+            $scope.chickUsername = function () {
+                $http({
+                    method: "POST",
+                    url: "/chickUserName",
+                    data:{'username':$scope.username
+                    }
+                }).success(function (res,status) {
+                    if (res == "ok"){
+                        $('#username').next().html("<font color=green> 可以使用</font>")
+                    } else {
+                        $('#username').next().html("<font color=red> 不可用</font>")
+                    }
+
+                    // document.getElementById("sp1").innerText = "yon"
+                }).error(function (res,status) {
+                    alert(res+"cuowu"+status)
+                })
+            }
+        })
+
+    </script>
+</head>
+<body ng-app="myModule" ng-controller="myController">
+<form action="">
+    <input type="text" id="username" name="username" ng-model="username" ng-blur="chickUsername()"/><span ></span><br>
+    <input type="password" name="passwprd" ng-model="passwprd"/><span >
+
+</form>
+
+</body>
+</html>

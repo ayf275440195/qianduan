@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../static/js/angular.min.js"></script>
+    <script type="text/javascript">
+        //建立模块
+        var app = angular.module("myApp",[]);
+        //创建控制器
+        app.controller("myController",function ($scope,$http) {
+            $scope.findlist = function () {
+
+
+                $http.get("http://localhost:8080/test?s=ss").success(function (res) {
+                    $scope.list = res;
+                })
+            }
+
+        });
+
+
+
+
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+
+<div align="center">
+<table>
+    <!--循环数组-->
+    <tr ng-repeat="x in list">
+        <td>{{x}}</td>
+    </tr>
+</table>
+    <table border="1">
+        <!--循环对象-->
+        <tr >
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>地址</td>
+        </tr>
+        <tr ng-repeat="user in list">
+            <td>{{user.name}}</td>
+            <td>{{user.age}}</td>
+            <td>{{user.add}}</td>
+        </tr>
+
+    </table>
+<button ng-click="findlist()">ss111111111</button>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/static/js/angular.min.js"></script>
+
+    <script type="text/javascript">
+        var app = angular.module("myModule",[]);
+        app.controller("testController",function ($scope, $http) {
+            $scope.getItem = function () {
+            $http.get("http://localhost:8080/getItems").success(function (res) {
+                $scope.list = res;
+            })
+        }
+        })
+
+    </script>
+</head>
+<body ng-app="myModule" ng-controller="testController" ng-init="getItem()">
+<div align="center">
+<table border="1">
+    <tr>
+        <td>名称</td>
+        <td>价格</td>
+        <td>介绍</td>
+        <td>图片</td>
+        <td>创建时间</td>
+    </tr>
+    <tr ng-repeat="item in list">
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.detail}}</td>
+        <td>{{item.pic}}</td>
+        <td>{{item.createtime}}</td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

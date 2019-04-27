@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/vue/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+</head>
+<body>
+<div id="app">
+    {{ message1 }}
+    <div >
+        <table >
+            <tr v-for="user in users">
+                <td>{{user.name}}</td>
+                <td>{{user.age}}</td>
+                <td>{{user.add}}</td>
+            </tr>
+        </table>
+        <input type="text" v-model="url">
+        <div v-html="h2"></div>
+    </div>
+    <button @click="getMsg()">点击</button>
+</div>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!',
+            message1: 'Hello Vue.js!',
+            users:[
+                {name:"tom",age:22,add:"usa"},
+                {name:"jeary",age:21,add:"usa"},
+                {name:"jim",age:24,add:"usa"}
+            ],
+            url:"sss",
+            h2:'<h2>hello</h2>'
+        },
+        methods:{
+          getMsg(){
+              this.url="aa"
+          }
+        }
+    })
+</script>
+</body>
+</html>
